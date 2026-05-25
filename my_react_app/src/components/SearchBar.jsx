@@ -4,18 +4,29 @@ function SearchBar({ onSearch }) {
   const [city, setCity] = useState("")
 
   const handleClick = () => {
-    onSearch(city)
+    if (city.trim()) {
+      onSearch(city)
+      setCity("")
+    }
+  }
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      handleClick()
+    }
   }
 
   return (
-    <div>
+    <div className="search-bar">
       <input
         type="text"
-        placeholder="Enter city name..."
+        className="search-input"
+        placeholder="Search city..."
         value={city}
         onChange={(e) => setCity(e.target.value)}
+        onKeyPress={handleKeyPress}
       />
-      <button onClick={handleClick}>Search</button>
+      <button className="search-btn" onClick={handleClick}>Search</button>
     </div>
   )
 }
